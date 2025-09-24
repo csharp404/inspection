@@ -1,0 +1,86 @@
+{
+  "app": {
+    "title": "Inspection Domains Catalog",
+    "language": "Language",
+    "selectLanguage": "Select Language"
+  },
+  "table": {
+    "groupName": "Group Name",
+    "groupNameAr": "Group Name (Arabic)",
+    "groupNameEn": "Group Name (English)",
+    "status": "Status",
+    "totalChildren": "Total Children",
+    "activeChildren": "Active Children",
+    "inactiveChildren": "Inactive Children",
+    "suspendedChildren": "Suspended Children"
+  },
+  "status": {
+    "active": "Active",
+    "inactive": "Inactive",
+    "all": "All",
+    "selectStatus": "Select Status"
+  },
+  "languages": {
+    "english": "English",
+    "arabic": "العربية"
+  },
+  "filter": {
+    "showActiveOnly": "Show Active Only",
+    "showInactiveOnly": "Show Inactive Only"
+  },
+  "form": {
+    "addTitle": "Add New Group",
+    "editTitle": "Edit Group",
+    "groupNameEn": "Group Name (English)",
+    "groupNameAr": "Group Name (Arabic)",
+    "activationStatus": "Activation Status",
+    "create": "Add",
+    "update": "Update",
+    "cancel": "Cancel",
+    "placeholders": {
+      "groupNameEn": "Enter group name in English",
+      "groupNameAr": "أدخل اسم المجموعة بالعربية"
+    },
+    "errors": {
+      "required": "This field is required",
+      "minLength": "Minimum length is 2 characters"
+    }
+  },
+  "actions": {
+    "title": "Actions",
+    "add": "Add New",
+    "edit": "Edit",
+    "delete": "Delete",
+    "save": "Save",
+    "cancel": "Cancel",
+    "manageChildren": "Manage Children",
+    "addChild": "Add Child",
+    "updateChild": "Update Child"
+  },
+  "childForm": {
+    "addTitle": "Add New Inspection Domain",
+    "editTitle": "Edit Inspection Domain",
+    "parentGroup": "Parent Group",
+    "inspectionDomainEn": "Inspection Domain (English)",
+    "inspectionDomainAr": "Inspection Domain (Arabic)",
+    "activationStatus": "Activation Status",
+    "numberOfValidQualifiedEntities": "Valid Qualified Entities",
+    "numberOfValidQualifiedInspectors": "Valid Qualified Inspectors",
+    "numberOfPendingQualificationRequests": "Pending Qualification Requests",
+    "create": "Add",
+    "update": "Update",
+    "cancel": "Cancel",
+    "placeholders": {
+      "inspectionDomainEn": "Enter inspection domain name in English",
+      "inspectionDomainAr": "أدخل اسم مجال التفتيش بالعربية",
+      "numberOfValidQualifiedEntities": "Enter number of valid qualified entities",
+      "numberOfValidQualifiedInspectors": "Enter number of valid qualified inspectors",
+      "numberOfPendingQualificationRequests": "Enter number of pending qualification requests"
+    },
+    "errors": {
+      "required": "This field is required",
+      "minLength": "Minimum length is 2 characters",
+      "minValue": "Value must be 0 or greater"
+    }
+  }
+}

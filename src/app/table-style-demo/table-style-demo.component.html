@@ -1,0 +1,479 @@
+<div class="card">
+  <p-treetable
+    #tt
+    [value]="getPaginatedData()"
+    [columns]="cols"
+    [filterMode]="filterMode"
+    [scrollable]="false"
+    [tableStyle]="{ 'min-width': '70rem' }"
+  >
+    <ng-template #caption>
+      <div class="flex justify-between items-center">
+        <div class="flex gap-2">
+          <p-button
+            [label]="'actions.add' | translate"
+            icon="pi pi-plus"
+            severity="success"
+            (onClick)="onAddNew()"
+          >
+          </p-button>
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template #header let-columns>
+      <tr>
+        <th *ngFor="let col of cols" style="text-align: center">
+          {{ col.header | translate }}
+        </th>
+      </tr>
+      <tr>
+        <th *ngFor="let col of cols" style="text-align: center">
+          <div *ngIf="col.field === 'status'" class="status-filter-container">
+            <p-dropdown
+              [(ngModel)]="statusFilter"
+              [options]="statusFilterOptions"
+              optionLabel="label"
+              optionValue="value"
+              (onChange)="onStatusFilterChange($event)"
+              [placeholder]="'status.selectStatus' | translate"
+              styleClass="status-dropdown"
+            />
+          </div>
+          <input
+            *ngIf="col.field !== 'status' && col.field !== 'actions'"
+            pInputText
+            [placeholder]="getColumnFilterPlaceholder(col.field)"
+            type="text"
+            (input)="
+              onColumnFilter(
+                $event,
+                col.field,
+                col.filterMatchMode || 'contains'
+              )
+            "
+          />
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template #body let-rowNode let-rowData="rowData">
+      <tr
+        [ttRow]="rowNode"
+        [ngClass]="getRowClass(rowData)"
+        [ngStyle]="getRowStyle(rowData)"
+        (click)="onRowClick(rowData, $event)"
+      >
+        <td *ngFor="let col of cols; let i = index">
+          <p-treetable-toggler [rowNode]="rowNode" *ngIf="i === 0" />
+          <ng-container [ngSwitch]="col.field">
+            <span *ngSwitchCase="'groupName'">{{ getGroupName(rowData) }}</span>
+            <span *ngSwitchCase="'status'">
+              <p-badge
+                [value]="getActiveStatusText(rowData) | translate"
+                [severity]="getStatusSeverity(rowData)"
+              />
+            </span>
+            <span *ngSwitchCase="'totalChildren'" style="font-weight: bold">{{
+              rowData[col.field]
+            }}</span>
+            <span *ngSwitchCase="'activeChildren'">
+              <p-badge [value]="rowData[col.field]" severity="success" />
+            </span>
+            <span *ngSwitchCase="'inactiveChildren'">
+              <p-badge [value]="rowData[col.field]" severity="danger" />
+            </span>
+            <span *ngSwitchCase="'suspendedChildren'">
+              <p-badge [value]="rowData[col.field]" severity="warn" />
+            </span>
+            <span *ngSwitchCase="'actions'">
+              <!-- Action buttons for parent rows only -->
+              <div
+                *ngIf="rowData.type === 'group'"
+                class="flex gap-1 justify-center"
+              >
+                <button
+                  (click)="handleEditClick(rowData, $event)"
+                  (mousedown)="handleEditClick(rowData, $event)"
+                  style="
+                    background: #3b82f6;
+                    color: white;
+                    padding: 8px 16px;
+                    margin: 2px;
+                    border: none;
+                    border-radius: 4px;
+                    font-size: 12px;
+                    cursor: pointer;
+                    z-index: 1000;
+                    position: relative;
+                  "
+                  title="Edit Group"
+                >
+                  {{ "actions.edit" | translate }}
+                </button>
+                <button
+                  (click)="handleAddChildClick(rowData, $event)"
+                  (mousedown)="handleAddChildClick(rowData, $event)"
+                  style="
+                    background: #10b981;
+                    color: white;
+                    padding: 8px 16px;
+                    margin: 2px;
+                    border: none;
+                    border-radius: 4px;
+                    font-size: 12px;
+                    cursor: pointer;
+                    z-index: 1000;
+                    position: relative;
+                  "
+                  title="Add Child"
+                >
+                  {{ "actions.addChild" | translate }}
+                </button>
+              </div>
+            </span>
+            <span *ngSwitchDefault>{{ rowData[col.field] }}</span>
+          </ng-container>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template #emptymessage>
+      <tr>
+        <td [attr.colspan]="cols.length" style="text-align: center">
+          No data found.
+        </td>
+      </tr>
+    </ng-template>
+  </p-treetable>
+
+  <p-paginator
+    (onPageChange)="onPageChange($event)"
+    [first]="first"
+    [rows]="rows"
+    [totalRecords]="totalRecords"
+    [rowsPerPageOptions]="[5, 10, 20, 30]"
+  />
+</div>
+
+<!-- Form Component -->
+<app-inspection-domain-form
+  [visible]="showForm"
+  [editMode]="editMode"
+  [groupData]="selectedGroup"
+  (visibleChange)="onFormVisibleChange($event)"
+  (save)="onFormSave($event)"
+  (cancel)="onFormCancel()"
+>
+</app-inspection-domain-form>
+
+<!-- Group Update Dialog -->
+<p-dialog
+  [visible]="showGroupUpdateDialog"
+  [modal]="true"
+  [closable]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [style]="{ width: '600px', maxWidth: '90vw' }"
+  [header]="'form.editTitle' | translate"
+  [baseZIndex]="10000"
+  [autoZIndex]="true"
+  (onHide)="onGroupUpdateCancel()"
+  styleClass="edit-dialog"
+>
+  <form
+    [formGroup]="groupUpdateForm"
+    (ngSubmit)="onGroupUpdateSave()"
+    class="p-fluid"
+  >
+    <div class="edit-form-content">
+      <!-- Form Fields -->
+      <div class="edit-form-fields">
+        <!-- Group Name (English) -->
+        <div class="field mb-2" style="margin-bottom: 10px !important">
+          <label class="field-label">
+            {{ "form.groupNameEn" | translate }}
+            <span class="required-asterisk">*</span>
+          </label>
+          <input
+            pInputText
+            formControlName="groupNameEn"
+            [placeholder]="'form.placeholders.groupNameEn' | translate"
+            class="form-input"
+            [class.p-invalid]="
+              groupUpdateForm.get('groupNameEn')?.errors &&
+              groupUpdateForm.get('groupNameEn')?.touched
+            "
+          />
+          <small
+            *ngIf="
+              groupUpdateForm.get('groupNameEn')?.errors &&
+              groupUpdateForm.get('groupNameEn')?.touched
+            "
+            class="error-message"
+          >
+            {{ "form.errors.required" | translate }}
+          </small>
+        </div>
+
+        <!-- Group Name (Arabic) -->
+        <div class="field mb-2" style="margin-bottom: 10px !important">
+          <label class="field-label">
+            {{ "form.groupNameAr" | translate }}
+            <span class="required-asterisk">*</span>
+          </label>
+          <input
+            pInputText
+            formControlName="groupNameAr"
+            [placeholder]="'form.placeholders.groupNameAr' | translate"
+            class="form-input"
+            dir="rtl"
+            [class.p-invalid]="
+              groupUpdateForm.get('groupNameAr')?.errors &&
+              groupUpdateForm.get('groupNameAr')?.touched
+            "
+          />
+          <small
+            *ngIf="
+              groupUpdateForm.get('groupNameAr')?.errors &&
+              groupUpdateForm.get('groupNameAr')?.touched
+            "
+            class="error-message"
+          >
+            {{ "form.errors.required" | translate }}
+          </small>
+        </div>
+
+        <!-- Activation Status -->
+        <div class="field mb-2" style="margin-bottom: 10px !important">
+          <div class="checkbox-field">
+            <p-checkbox
+              formControlName="isActive"
+              [binary]="true"
+              inputId="editIsActive"
+              styleClass="custom-checkbox"
+            >
+            </p-checkbox>
+            <label for="editIsActive" class="checkbox-label">
+              {{ "form.activationStatus" | translate }}
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form Actions -->
+    <div class="form-actions">
+      <p-button
+        type="button"
+        [label]="'form.cancel' | translate"
+        icon="pi pi-times"
+        severity="secondary"
+        [outlined]="true"
+        (onClick)="onGroupUpdateCancel()"
+        styleClass="action-button"
+      >
+      </p-button>
+
+      <p-button
+        type="submit"
+        [label]="'form.update' | translate"
+        icon="pi pi-check"
+        [disabled]="!groupUpdateForm.valid"
+        styleClass="action-button primary-button"
+      >
+      </p-button>
+    </div>
+  </form>
+</p-dialog>
+
+<!-- Child Add Dialog -->
+<p-dialog
+  [visible]="showChildAddDialog"
+  [modal]="true"
+  [closable]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [style]="{ width: '700px', maxWidth: '90vw' }"
+  [header]="'childForm.addTitle' | translate"
+  [baseZIndex]="10000"
+  [autoZIndex]="true"
+  (onHide)="onChildAddCancel()"
+  styleClass="child-dialog"
+>
+  <form
+    [formGroup]="childAddForm"
+    (ngSubmit)="onChildAddSave()"
+    class="p-fluid"
+  >
+    <div class="child-form-content">
+      <!-- Parent Group Info -->
+      <div class="parent-info-section">
+        <label class="field-label">
+          {{ "childForm.parentGroup" | translate }}
+        </label>
+        <div class="parent-group-display">
+          <div class="parent-group-name">
+            {{ selectedGroupForChild?.groupNameEn }}
+          </div>
+          <div class="parent-group-name-ar">
+            {{ selectedGroupForChild?.groupNameAr }}
+          </div>
+        </div>
+      </div>
+
+      <!-- Form Fields -->
+      <div class="child-form-fields">
+        <!-- Inspection Domain (English) -->
+        <div class="field mb-2" style="margin-bottom: 10px !important">
+          <label class="field-label">
+            {{ "childForm.inspectionDomainEn" | translate }}
+            <span class="required-asterisk">*</span>
+          </label>
+          <input
+            pInputText
+            formControlName="inspectionDomainEn"
+            [placeholder]="
+              'childForm.placeholders.inspectionDomainEn' | translate
+            "
+            class="form-input"
+            [class.p-invalid]="
+              childAddForm.get('inspectionDomainEn')?.errors &&
+              childAddForm.get('inspectionDomainEn')?.touched
+            "
+          />
+          <small
+            *ngIf="
+              childAddForm.get('inspectionDomainEn')?.errors &&
+              childAddForm.get('inspectionDomainEn')?.touched
+            "
+            class="error-message"
+          >
+            {{ "childForm.errors.required" | translate }}
+          </small>
+        </div>
+
+        <!-- Inspection Domain (Arabic) -->
+        <div class="field mb-2" style="margin-bottom: 10px !important">
+          <label class="field-label">
+            {{ "childForm.inspectionDomainAr" | translate }}
+            <span class="required-asterisk">*</span>
+          </label>
+          <input
+            pInputText
+            formControlName="inspectionDomainAr"
+            [placeholder]="
+              'childForm.placeholders.inspectionDomainAr' | translate
+            "
+            class="form-input"
+            dir="rtl"
+            [class.p-invalid]="
+              childAddForm.get('inspectionDomainAr')?.errors &&
+              childAddForm.get('inspectionDomainAr')?.touched
+            "
+          />
+          <small
+            *ngIf="
+              childAddForm.get('inspectionDomainAr')?.errors &&
+              childAddForm.get('inspectionDomainAr')?.touched
+            "
+            class="error-message"
+          >
+            {{ "childForm.errors.required" | translate }}
+          </small>
+        </div>
+
+        <!-- Activation Status -->
+        <div class="field mb-2" style="margin-bottom: 10px !important">
+          <div class="checkbox-field">
+            <p-checkbox
+              formControlName="activationStatus"
+              [binary]="true"
+              inputId="activationStatus"
+              styleClass="custom-checkbox"
+            >
+            </p-checkbox>
+            <label for="activationStatus" class="checkbox-label">
+              {{ "childForm.activationStatus" | translate }}
+            </label>
+          </div>
+        </div>
+
+        <!-- Number Fields Grid -->
+        <div class="number-fields-grid">
+          <!-- Valid Qualified Entities -->
+          <div class="field mb-2" style="margin-bottom: 10px !important">
+            <label class="field-label">
+              {{ "childForm.numberOfValidQualifiedEntities" | translate }}
+            </label>
+            <p-inputNumber
+              formControlName="numberOfValidQualifiedEntities"
+              [placeholder]="
+                'childForm.placeholders.numberOfValidQualifiedEntities'
+                  | translate
+              "
+              [min]="0"
+              class="w-full"
+              styleClass="number-input"
+            ></p-inputNumber>
+          </div>
+
+          <!-- Valid Qualified Inspectors -->
+          <div class="field mb-2" style="margin-bottom: 10px !important">
+            <label class="field-label">
+              {{ "childForm.numberOfValidQualifiedInspectors" | translate }}
+            </label>
+            <p-inputNumber
+              formControlName="numberOfValidQualifiedInspectors"
+              [placeholder]="
+                'childForm.placeholders.numberOfValidQualifiedInspectors'
+                  | translate
+              "
+              [min]="0"
+              class="w-full"
+              styleClass="number-input"
+            ></p-inputNumber>
+          </div>
+
+          <!-- Pending Qualification Requests -->
+          <div class="field mb-2" style="margin-bottom: 10px !important">
+            <label class="field-label">
+              {{ "childForm.numberOfPendingQualificationRequests" | translate }}
+            </label>
+            <p-inputNumber
+              formControlName="numberOfPendingQualificationRequests"
+              [placeholder]="
+                'childForm.placeholders.numberOfPendingQualificationRequests'
+                  | translate
+              "
+              [min]="0"
+              class="w-full"
+              styleClass="number-input"
+            ></p-inputNumber>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form Actions -->
+    <div class="form-actions">
+      <p-button
+        type="button"
+        [label]="'childForm.cancel' | translate"
+        icon="pi pi-times"
+        severity="secondary"
+        [outlined]="true"
+        (onClick)="onChildAddCancel()"
+        styleClass="action-button"
+      >
+      </p-button>
+
+      <p-button
+        type="submit"
+        [label]="'childForm.create' | translate"
+        icon="pi pi-plus"
+        [disabled]="!childAddForm.valid"
+        styleClass="action-button primary-button"
+      >
+      </p-button>
+    </div>
+  </form>
+</p-dialog>

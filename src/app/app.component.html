@@ -1,0 +1,38 @@
+<div class="app-container">
+  <div class="app-header">
+    <div class="header-content">
+      <img src="/logo_NCMI02.png" alt="NCMI Logo" class="app-logo" />
+      <div class="language-selector">
+        <p-dropdown
+          [options]="languages"
+          [(ngModel)]="selectedLanguage"
+          optionLabel="name"
+          optionValue="code"
+          [placeholder]="'app.selectLanguage' | translate"
+          (onChange)="onLanguageChange($event)"
+          [style]="{ 'min-width': '150px' }"
+        >
+          <ng-template pTemplate="selectedItem">
+            <div class="flex align-items-center gap-2">
+              <span>{{ selectedLanguage?.flag }}</span>
+              <span>{{ selectedLanguage?.name }}</span>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="item" let-language>
+            <div class="flex align-items-center gap-2">
+              <span>{{ language.flag }}</span>
+              <span>{{ language.name }}</span>
+            </div>
+          </ng-template>
+        </p-dropdown>
+      </div>
+    </div>
+  </div>
+
+  <div class="app-content">
+    <section id="table-demo" class="content-section">
+      <h2>{{ "app.title" | translate }}</h2>
+      <table-style-demo></table-style-demo>
+    </section>
+  </div>
+</div>

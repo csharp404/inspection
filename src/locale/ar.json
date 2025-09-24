@@ -1,0 +1,86 @@
+{
+  "app": {
+    "title": "كتالوج مجالات التفتيش",
+    "language": "اللغة",
+    "selectLanguage": "اختر اللغة"
+  },
+  "table": {
+    "groupName": "اسم المجموعة",
+    "groupNameAr": "اسم المجموعة (عربي)",
+    "groupNameEn": "اسم المجموعة (إنجليزي)",
+    "status": "الحالة",
+    "totalChildren": "إجمالي الفروع",
+    "activeChildren": "الفروع النشطة",
+    "inactiveChildren": "الفروع غير النشطة",
+    "suspendedChildren": "الفروع المعلقة"
+  },
+  "status": {
+    "active": "نشط",
+    "inactive": "غير نشط",
+    "all": "الكل",
+    "selectStatus": "اختر الحالة"
+  },
+  "languages": {
+    "english": "English",
+    "arabic": "العربية"
+  },
+  "filter": {
+    "showActiveOnly": "إظهار النشط فقط",
+    "showInactiveOnly": "إظهار غير النشط فقط"
+  },
+  "form": {
+    "addTitle": "إضافة مجموعة جديدة",
+    "editTitle": "تعديل المجموعة",
+    "groupNameEn": "اسم المجموعة (إنجليزي)",
+    "groupNameAr": "اسم المجموعة (عربي)",
+    "activationStatus": "حالة التفعيل",
+    "create": "إضافة",
+    "update": "تحديث",
+    "cancel": "إلغاء",
+    "placeholders": {
+      "groupNameEn": "Enter group name in English",
+      "groupNameAr": "أدخل اسم المجموعة بالعربية"
+    },
+    "errors": {
+      "required": "هذا الحقل مطلوب",
+      "minLength": "الحد الأدنى للطول هو حرفين"
+    }
+  },
+  "actions": {
+    "title": "الإجراءات",
+    "add": "إضافة جديد",
+    "edit": "تعديل",
+    "delete": "حذف",
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "manageChildren": "إدارة الفروع",
+    "addChild": "إضافة فرع",
+    "updateChild": "تحديث فرع"
+  },
+  "childForm": {
+    "addTitle": "إضافة مجال تفتيش جديد",
+    "editTitle": "تعديل مجال التفتيش",
+    "parentGroup": "المجموعة الأم",
+    "inspectionDomainEn": "مجال التفتيش (إنجليزي)",
+    "inspectionDomainAr": "مجال التفتيش (عربي)",
+    "activationStatus": "حالة التفعيل",
+    "numberOfValidQualifiedEntities": "الكيانات المؤهلة الصالحة",
+    "numberOfValidQualifiedInspectors": "المفتشون المؤهلون الصالحون",
+    "numberOfPendingQualificationRequests": "طلبات التأهيل المعلقة",
+    "create": "إضافة",
+    "update": "تحديث",
+    "cancel": "إلغاء",
+    "placeholders": {
+      "inspectionDomainEn": "Enter inspection domain name in English",
+      "inspectionDomainAr": "أدخل اسم مجال التفتيش بالعربية",
+      "numberOfValidQualifiedEntities": "أدخل عدد الكيانات المؤهلة الصالحة",
+      "numberOfValidQualifiedInspectors": "أدخل عدد المفتشين المؤهلين الصالحين",
+      "numberOfPendingQualificationRequests": "أدخل عدد طلبات التأهيل المعلقة"
+    },
+    "errors": {
+      "required": "هذا الحقل مطلوب",
+      "minLength": "الحد الأدنى للطول هو حرفين",
+      "minValue": "يجب أن تكون القيمة 0 أو أكبر"
+    }
+  }
+}

@@ -1,0 +1,106 @@
+<p-dialog
+  [visible]="visible"
+  [modal]="true"
+  [closable]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [style]="{ width: '650px', maxWidth: '90vw' }"
+  [header]="getDialogTitle()"
+  (onHide)="onCancel()"
+  styleClass="custom-dialog"
+>
+  <form [formGroup]="form" (ngSubmit)="onSave()" class="p-fluid">
+    <div class="form-content">
+      <!-- Form Fields Container -->
+      <div class="form-fields">
+        <!-- Group Name (English) -->
+        <div class="field mb-4">
+          <label for="groupNameEn" class="field-label">
+            {{ "form.groupNameEn" | translate }}
+            <span class="required-asterisk">*</span>
+          </label>
+          <input
+            id="groupNameEn"
+            type="text"
+            pInputText
+            formControlName="groupNameEn"
+            [placeholder]="'form.placeholders.groupNameEn' | translate"
+            class="form-input"
+            [class.p-invalid]="
+              form.get('groupNameEn')?.invalid &&
+              form.get('groupNameEn')?.touched
+            "
+          />
+          <small *ngIf="getFieldError('groupNameEn')" class="error-message">
+            {{ getFieldError("groupNameEn") }}
+          </small>
+        </div>
+
+        <!-- Group Name (Arabic) -->
+        <div class="field mb-4">
+          <label for="groupNameAr" class="field-label">
+            {{ "form.groupNameAr" | translate }}
+            <span class="required-asterisk">*</span>
+          </label>
+          <input
+            id="groupNameAr"
+            type="text"
+            pInputText
+            formControlName="groupNameAr"
+            [placeholder]="'form.placeholders.groupNameAr' | translate"
+            class="form-input"
+            dir="rtl"
+            [class.p-invalid]="
+              form.get('groupNameAr')?.invalid &&
+              form.get('groupNameAr')?.touched
+            "
+          />
+          <small *ngIf="getFieldError('groupNameAr')" class="error-message">
+            {{ getFieldError("groupNameAr") }}
+          </small>
+        </div>
+
+        <!-- Activation Status -->
+        <div class="field mb-4">
+          <div class="checkbox-field">
+            <p-checkbox
+              formControlName="isActive"
+              [binary]="true"
+              inputId="isActive"
+              styleClass="custom-checkbox"
+            >
+            </p-checkbox>
+            <label for="isActive" class="checkbox-label">
+              {{ "form.activationStatus" | translate }}
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form Actions -->
+    <div class="form-actions">
+      <p-button
+        type="button"
+        [label]="'form.cancel' | translate"
+        icon="pi pi-times"
+        severity="secondary"
+        [outlined]="true"
+        (onClick)="onCancel()"
+        [disabled]="isSubmitting"
+        styleClass="action-button"
+      >
+      </p-button>
+
+      <p-button
+        type="submit"
+        [label]="getSaveButtonText()"
+        icon="pi pi-check"
+        [loading]="isSubmitting"
+        [disabled]="form.invalid"
+        styleClass="action-button primary-button"
+      >
+      </p-button>
+    </div>
+  </form>
+</p-dialog>

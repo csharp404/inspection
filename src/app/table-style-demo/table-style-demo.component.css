@@ -1,0 +1,787 @@
+/* Custom dropdown styling */
+.status-dropdown {
+  width: 100%;
+  min-width: 150px;
+}
+
+.status-dropdown .p-dropdown {
+  border: 2px solid #3f3361;
+  border-radius: 6px;
+  background-color: white;
+  transition: all 0.2s ease;
+}
+
+.status-dropdown .p-dropdown:hover {
+  border-color: #5a4a7a;
+  box-shadow: 0 0 0 2px rgba(63, 51, 97, 0.1);
+}
+
+.status-dropdown .p-dropdown:not(.p-disabled).p-focus {
+  border-color: #3f3361;
+  box-shadow: 0 0 0 2px rgba(63, 51, 97, 0.2);
+}
+
+.status-dropdown .p-dropdown-label {
+  color: #374151;
+  font-weight: 500;
+}
+
+/* Status filter container styling */
+.status-filter-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+/* Dialog styling to ensure visibility */
+:host ::ng-deep .p-dialog {
+  z-index: 10000 !important;
+}
+
+:host ::ng-deep .p-dialog-mask {
+  z-index: 9999 !important;
+}
+
+/* Form field styling */
+.form-field {
+  margin-bottom: 1.5rem;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 0.75rem;
+  font-weight: 500;
+  color: #374151;
+  font-size: 14px;
+}
+
+.parent-info {
+  border: 1px solid #e5e7eb;
+  border-radius: 0.375rem;
+  padding: 1rem;
+  background-color: #f9fafb;
+  margin-bottom: 1.5rem;
+}
+
+/* Dialog content spacing */
+:host ::ng-deep .p-dialog .p-dialog-content {
+  padding: 2rem;
+}
+
+/* Dialog header styling */
+:host ::ng-deep .p-dialog .p-dialog-header {
+  padding: 1.5rem 2rem 1rem 2rem;
+  border-bottom: 1px solid #e5e7eb;
+  background: #f8fafc;
+}
+
+:host ::ng-deep .p-dialog .p-dialog-header .p-dialog-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+/* Dialog body styling */
+:host ::ng-deep .p-dialog .p-dialog-content {
+  background: white;
+  border-radius: 0 0 8px 8px;
+}
+
+/* Bigger and more prominent buttons */
+.dialog-button {
+  padding: 12px 24px !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  border-radius: 8px !important;
+  min-width: 120px !important;
+  transition: all 0.2s ease !important;
+}
+
+.dialog-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.dialog-button-primary {
+  background: #3b82f6 !important;
+  border: none !important;
+  color: white !important;
+}
+
+.dialog-button-primary:hover {
+  background: #2563eb !important;
+}
+
+.dialog-button-secondary {
+  background: #6b7280 !important;
+  border: none !important;
+  color: white !important;
+}
+
+.dialog-button-secondary:hover {
+  background: #4b5563 !important;
+}
+
+/* Input field styling improvements */
+:host ::ng-deep .p-inputtext {
+  padding: 12px 16px !important;
+  border-radius: 8px !important;
+  border: 2px solid #d1d5db !important;
+  font-size: 14px !important;
+  transition: all 0.2s ease !important;
+}
+
+:host ::ng-deep .p-inputtext:focus {
+  border-color: #3b82f6 !important;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
+  outline: none !important;
+}
+
+/* Input number styling */
+:host ::ng-deep .p-inputnumber {
+  width: 100% !important;
+}
+
+:host ::ng-deep .p-inputnumber .p-inputtext {
+  width: 100% !important;
+}
+
+/* Checkbox styling */
+:host ::ng-deep .p-checkbox {
+  margin-right: 8px;
+}
+
+:host ::ng-deep .p-checkbox .p-checkbox-box {
+  border-radius: 4px !important;
+  border: 2px solid #d1d5db !important;
+  width: 20px !important;
+  height: 20px !important;
+}
+
+:host ::ng-deep .p-checkbox .p-checkbox-box.p-highlight {
+  background: #3b82f6 !important;
+  border-color: #3b82f6 !important;
+}
+
+/* Table button styling to ensure they work properly */
+:host ::ng-deep .p-treetable-tbody td {
+  position: relative;
+}
+
+:host ::ng-deep .p-treetable-tbody button {
+  position: relative;
+  z-index: 1000;
+  pointer-events: auto;
+}
+
+/* Ensure buttons are clickable and not blocked by TreeTable */
+:host ::ng-deep .p-treetable-tbody .flex {
+  position: relative;
+  z-index: 1000;
+  pointer-events: auto;
+}
+
+/* ===== CHILD DIALOG STYLING ===== */
+/* Custom Child Dialog Styling */
+:host ::ng-deep .child-dialog {
+  .p-dialog {
+    border-radius: 12px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+      0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    border: none;
+  }
+
+  .p-dialog-header {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    border-radius: 12px 12px 0 0;
+    padding: 1.5rem;
+    border: none;
+  }
+
+  .p-dialog-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: white;
+  }
+
+  .p-dialog-header-icon {
+    color: white;
+    font-size: 1.2rem;
+  }
+
+  .p-dialog-content {
+    padding: 2rem;
+    background: #fafafa;
+    border-radius: 0 0 12px 12px;
+  }
+}
+
+/* Child Form Content */
+.child-form-content {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+}
+
+/* Parent Info Section */
+.parent-info-section {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  border: 2px solid #0ea5e9;
+  border-radius: 12px;
+  position: relative;
+}
+
+.parent-info-section::before {
+  content: "📁";
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 1.5rem;
+  opacity: 0.7;
+}
+
+.parent-group-display {
+  margin-top: 0.75rem;
+}
+
+.parent-group-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #0c4a6e;
+  margin-bottom: 0.25rem;
+}
+
+.parent-group-name-ar {
+  font-size: 0.95rem;
+  color: #0369a1;
+  font-weight: 500;
+}
+
+/* Child Form Fields */
+.child-form-fields {
+  margin-bottom: 2rem;
+}
+
+.field {
+  margin-bottom: 2.5rem;
+}
+
+/* Add 10px margin between fields for child and edit dialogs */
+:host ::ng-deep .child-dialog .field,
+:host ::ng-deep .edit-dialog .field {
+  margin-bottom: 10px !important;
+}
+
+/* Specific override for child dialog fields */
+:host ::ng-deep .child-dialog .child-form-fields .field {
+  margin-bottom: 10px !important;
+}
+
+.field-label {
+  display: block;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.75rem;
+  font-size: 0.95rem;
+}
+
+.required-asterisk {
+  color: #ef4444;
+  margin-left: 0.25rem;
+  font-weight: 700;
+}
+
+.form-input {
+  width: 100%;
+  padding: 1rem 1.25rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.2s ease-in-out;
+  background: white;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+.form-input.p-invalid {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+.error-message {
+  display: block;
+  color: #ef4444;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+  font-weight: 500;
+}
+
+/* Checkbox Field Styling */
+.checkbox-field {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.25rem;
+  background: #f8fafc;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  transition: all 0.2s ease-in-out;
+}
+
+.checkbox-field:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+.checkbox-label {
+  font-weight: 500;
+  color: #374151;
+  cursor: pointer;
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+:host ::ng-deep .custom-checkbox {
+  .p-checkbox-box {
+    border: 2px solid #d1d5db;
+    border-radius: 6px;
+    width: 1.25rem;
+    height: 1.25rem;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .p-checkbox-box.p-highlight {
+    background: #10b981;
+    border-color: #10b981;
+  }
+
+  .p-checkbox-box:hover {
+    border-color: #10b981;
+  }
+}
+
+/* Number Fields Grid */
+.number-fields-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+  padding: 2rem;
+  background: #f8fafc;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+}
+
+.number-fields-grid .field {
+  margin-bottom: 0;
+}
+
+:host ::ng-deep .number-input {
+  width: 100% !important;
+}
+
+:host ::ng-deep .number-input .p-inputtext {
+  width: 100% !important;
+  padding: 0.75rem 1rem !important;
+  border: 2px solid #e5e7eb !important;
+  border-radius: 8px !important;
+  font-size: 1rem !important;
+  transition: all 0.2s ease-in-out !important;
+  background: white !important;
+}
+
+:host ::ng-deep .number-input .p-inputtext:focus {
+  border-color: #10b981 !important;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1) !important;
+  outline: none !important;
+}
+
+/* Form Actions */
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding-top: 2rem;
+  border-top: 2px solid #e5e7eb;
+  margin-top: 2rem;
+}
+
+:host ::ng-deep .action-button {
+  min-width: 120px;
+  height: 2.75rem;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: all 0.2s ease-in-out;
+}
+
+:host ::ng-deep .primary-button {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  border: none;
+  color: white;
+}
+
+:host ::ng-deep .primary-button:hover:not(:disabled) {
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+}
+
+:host ::ng-deep .action-button.p-button-outlined {
+  border: 2px solid #d1d5db;
+  color: #6b7280;
+  background: white;
+}
+
+:host ::ng-deep .action-button.p-button-outlined:hover:not(:disabled) {
+  border-color: #9ca3af;
+  color: #374151;
+  background: #f9fafb;
+  transform: translateY(-1px);
+}
+
+/* RTL Support */
+[dir="rtl"] .required-asterisk {
+  margin-left: 0;
+  margin-right: 0.25rem;
+}
+
+[dir="rtl"] .checkbox-field {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .form-actions {
+  flex-direction: row-reverse;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  :host ::ng-deep .child-dialog .p-dialog {
+    width: 95vw !important;
+    margin: 1rem;
+  }
+
+  :host ::ng-deep .child-dialog .p-dialog-content {
+    padding: 1rem;
+  }
+
+  .child-form-content {
+    padding: 1rem;
+  }
+
+  .number-fields-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    padding: 1rem;
+  }
+
+  .form-actions {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  :host ::ng-deep .action-button {
+    width: 100%;
+  }
+}
+
+/* Dark mode support */
+:host-context(.dark) .child-form-content {
+  background: #1f2937;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+}
+
+:host-context(.dark) .field-label {
+  color: #f9fafb;
+}
+
+:host-context(.dark) .form-input {
+  background: #374151;
+  border-color: #4b5563;
+  color: #f9fafb;
+}
+
+:host-context(.dark) .checkbox-field {
+  background: #374151;
+  border-color: #4b5563;
+}
+
+:host-context(.dark) .checkbox-label {
+  color: #f9fafb;
+}
+
+:host-context(.dark) .number-fields-grid {
+  background: #374151;
+  border-color: #4b5563;
+}
+
+:host-context(.dark) .form-actions {
+  border-color: #4b5563;
+}
+
+/* ===== EDIT DIALOG STYLING ===== */
+/* Custom Edit Dialog Styling */
+:host ::ng-deep .edit-dialog {
+  .p-dialog {
+    border-radius: 12px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+      0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    border: none;
+  }
+
+  .p-dialog-header {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    color: white;
+    border-radius: 12px 12px 0 0;
+    padding: 1.5rem;
+    border: none;
+  }
+
+  .p-dialog-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: white;
+  }
+
+  .p-dialog-header-icon {
+    color: white;
+    font-size: 1.2rem;
+  }
+
+  .p-dialog-content {
+    padding: 2rem;
+    background: #fafafa;
+    border-radius: 0 0 12px 12px;
+  }
+}
+
+/* Edit Form Content */
+.edit-form-content {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+}
+
+/* Edit Form Fields */
+.edit-form-fields {
+  margin-bottom: 2rem;
+}
+
+.edit-form-fields .field {
+  margin-bottom: 2.5rem;
+}
+
+/* Override edit dialog field margins with 10px */
+:host ::ng-deep .edit-dialog .edit-form-fields .field {
+  margin-bottom: 10px !important;
+}
+
+.edit-form-fields .field-label {
+  display: block;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.75rem;
+  font-size: 0.95rem;
+}
+
+.edit-form-fields .required-asterisk {
+  color: #ef4444;
+  margin-left: 0.25rem;
+  font-weight: 700;
+}
+
+.edit-form-fields .form-input {
+  width: 100%;
+  padding: 1rem 1.25rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.2s ease-in-out;
+  background: white;
+}
+
+.edit-form-fields .form-input:focus {
+  outline: none;
+  border-color: #f59e0b;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+}
+
+.edit-form-fields .form-input.p-invalid {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+.edit-form-fields .error-message {
+  display: block;
+  color: #ef4444;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+  font-weight: 500;
+}
+
+/* Edit Checkbox Field Styling */
+.edit-form-fields .checkbox-field {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.25rem;
+  background: #f8fafc;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  transition: all 0.2s ease-in-out;
+}
+
+.edit-form-fields .checkbox-field:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+.edit-form-fields .checkbox-label {
+  font-weight: 500;
+  color: #374151;
+  cursor: pointer;
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+:host ::ng-deep .edit-dialog .custom-checkbox {
+  .p-checkbox-box {
+    border: 2px solid #d1d5db;
+    border-radius: 6px;
+    width: 1.25rem;
+    height: 1.25rem;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .p-checkbox-box.p-highlight {
+    background: #f59e0b;
+    border-color: #f59e0b;
+  }
+
+  .p-checkbox-box:hover {
+    border-color: #f59e0b;
+  }
+}
+
+/* Edit Form Actions */
+.edit-form-fields + .form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding-top: 2rem;
+  border-top: 2px solid #e5e7eb;
+  margin-top: 2rem;
+}
+
+:host ::ng-deep .edit-dialog .action-button {
+  min-width: 120px;
+  height: 2.75rem;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: all 0.2s ease-in-out;
+}
+
+:host ::ng-deep .edit-dialog .primary-button {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  border: none;
+  color: white;
+}
+
+:host ::ng-deep .edit-dialog .primary-button:hover:not(:disabled) {
+  background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+}
+
+:host ::ng-deep .edit-dialog .action-button.p-button-outlined {
+  border: 2px solid #d1d5db;
+  color: #6b7280;
+  background: white;
+}
+
+:host
+  ::ng-deep
+  .edit-dialog
+  .action-button.p-button-outlined:hover:not(:disabled) {
+  border-color: #9ca3af;
+  color: #374151;
+  background: #f9fafb;
+  transform: translateY(-1px);
+}
+
+/* Edit Dialog RTL Support */
+[dir="rtl"] .edit-form-fields .required-asterisk {
+  margin-left: 0;
+  margin-right: 0.25rem;
+}
+
+[dir="rtl"] .edit-form-fields .checkbox-field {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .edit-form-fields + .form-actions {
+  flex-direction: row-reverse;
+}
+
+/* Edit Dialog Responsive Design */
+@media (max-width: 768px) {
+  :host ::ng-deep .edit-dialog .p-dialog {
+    width: 95vw !important;
+    margin: 1rem;
+  }
+
+  :host ::ng-deep .edit-dialog .p-dialog-content {
+    padding: 1rem;
+  }
+
+  .edit-form-content {
+    padding: 1rem;
+  }
+
+  .edit-form-fields + .form-actions {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  :host ::ng-deep .edit-dialog .action-button {
+    width: 100%;
+  }
+}
+
+/* Edit Dialog Dark mode support */
+:host-context(.dark) .edit-form-content {
+  background: #1f2937;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+}
+
+:host-context(.dark) .edit-form-fields .field-label {
+  color: #f9fafb;
+}
+
+:host-context(.dark) .edit-form-fields .form-input {
+  background: #374151;
+  border-color: #4b5563;
+  color: #f9fafb;
+}
+
+:host-context(.dark) .edit-form-fields .checkbox-field {
+  background: #374151;
+  border-color: #4b5563;
+}
+
+:host-context(.dark) .edit-form-fields .checkbox-label {
+  color: #f9fafb;
+}
+
+:host-context(.dark) .edit-form-fields + .form-actions {
+  border-color: #4b5563;
+}
